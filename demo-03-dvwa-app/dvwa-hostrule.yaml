@@ -1,0 +1,11 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: dvwa-hostrule
+spec:
+  virtualhost:
+    fqdn: dvwa.apps.corp.local
+    enableVirtualHost: true
+    gslb:
+      fqdn: dvwa.apps.corp.local
+    wafPolicy: System-WAF-Policy
