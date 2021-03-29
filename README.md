@@ -1,7 +1,5 @@
 # Kubernetes Demo Apps
 
-[toc]
-
 ## Overview
 This demo app is deployed in the lab environment. I have setup a DNS name `apps.corp.local` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using. 
 
@@ -12,8 +10,6 @@ More on the NSX ALB and how it integrates with Kubernetes/Openshift platform in 
 > Some container images are pulled from Docker hub. As Docker hub impose a pull limit, you may need to authenticate with Docker hub or increasing the limit as documented [here](https://www.docker.com/increase-rate-limits)
 
 ## Demo Apps 1: Kubernetes Hello Application
-![](https://i.imgur.com/yYosI6V.png)
-
 This application has a deployment and a secured ingress. Before deploying `hello-kubernetes.yaml` you need to create a TLS certificate in your local machine and configure it as a secret in the Kubernetes platform. The steps to create a self-signed cert are below:
 
 ### Creating a self-signed certificate
@@ -70,10 +66,6 @@ hello-kubernetes-ingress   <none>   hello.apps.corp.local             80, 443   
 ```
 
 ## Demo Apps 2: Online Shopping Application
-<center>
-
-![](https://github.com/GoogleCloudPlatform/microservices-demo/raw/master/src/frontend/static/icons/Hipster_HeroLogoCyan.svg =300x )
-</center>
 
 **Online Boutique** is a cloud-native microservices demo application.
 Online Boutique consists of a 10-tier microservices application. The application is a
@@ -213,11 +205,10 @@ HostRule CRD is primarily targeted to be used by the Operator. This CRD can be u
 
 HostRule CRD is the means to attach WAF Policy into ingress with specific FQDN. More details can be found [on AVI Networks Github](https://github.com/avinetworks/avi-helm-charts/blob/master/docs/AKO/crds/hostrule.md)
 
-:::info
-:warning: WAF Policy has to be created in the NSX ALB Controller before creating the HostRule object
+> :warning: WAF Policy has to be created in the NSX ALB Controller before creating the HostRule object 
+> 
+> :warning: WAF Policy only applies to secured FQDN (TLS based ingress)
 
-:warning: WAF Policy only applies to secured FQDN (TLS based ingress)
-:::
 
 Deploy the HostRule object
 ```bash
