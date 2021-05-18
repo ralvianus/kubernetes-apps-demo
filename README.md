@@ -1,7 +1,7 @@
 # Kubernetes Demo Apps
 
 ## Overview
-This demo app is deployed in the lab environment. I have setup a DNS name `apps.corp.local` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using. 
+This demo app is deployed in the lab environment. I have setup a DNS name `apps.corp.local` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using.
 
 This demo app is deployed in the environment where there is integration with NSX Advanced Load Balancer (formerly AVI Networks). NSX ALB provides ingress controller for multiple Kubernetes/Openshift clusters. The ingress settings in the yaml file is labelled with `avi-gslb` so that NSX ALB will be able to pickup the configuration and realize it in the NSX ALB platform.
 
@@ -14,7 +14,12 @@ This application has a deployment and a secured ingress. Before deploying `hello
 
 ### Creating a self-signed certificate
 
-**Step 1: Generate a TLS cert**
+**Step 1: Create a new namespace**
+```
+kubectl create ns hello
+```
+
+**Step 2: Generate a TLS cert**
 ```
 openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
@@ -23,9 +28,9 @@ openssl req -x509 -nodes -days 365 \
 -subj "/CN=hello.apps.corp.local/O=hello-ingress-tls"
 ```
 
-**Step 2: Create a Secret**
+**Step 3: Create a Secret**
 ```bash
-kubectl create secret tls hello-ingress-tls --namespace shop --key hello-ingress-tls.key --cert hello-ingress-tls.crt
+kubectl create secret tls hello-ingress-tls --namespace hello --key hello-ingress-tls.key --cert hello-ingress-tls.crt
 ```
 Verify that the secret has been created
 ```
@@ -35,7 +40,7 @@ hello-ingress-tls   kubernetes.io/tls   2      19s
 ```
 
 ### Deploy the yaml file
-Change directory 
+Change directory
 ```bash
 cd demo-01-hello-kubernetes
 ```
@@ -96,7 +101,7 @@ spec:
 I have ingress on subdomain `shop.apps.corp.local` and it is redirecting to frontend service.
 
 ### Deploy the yaml file
-Change directory 
+Change directory
 ```bash
 cd demo-02-shop
 ```
@@ -135,7 +140,7 @@ frontend-ingress   <none>   shop.apps.corp.local   10.20.10.150   80      18d
 
 The aim of DVWA is to practice some of the most common web vulnerabilities, with various levels of difficulty, with a simple straightforward interface. Please note, there are both documented and undocumented vulnerabilities with this software. This is intentional. You are encouraged to try and discover as many issues as possible.
 
-The purpose of this demo application is to test Web Application Firewall (WAF) capability from NSX Advanced Load Balancer (formerly AVI Networks). 
+The purpose of this demo application is to test Web Application Firewall (WAF) capability from NSX Advanced Load Balancer (formerly AVI Networks).
 
 ### Creating a self-signed certificate
 
@@ -160,7 +165,7 @@ dvwa-ingress-tls   kubernetes.io/tls   2      24s
 ```
 
 ### Deploy the yaml file
-Change directory 
+Change directory
 ```bash
 cd demo-03-dvwa-app
 ```
@@ -205,8 +210,8 @@ HostRule CRD is primarily targeted to be used by the Operator. This CRD can be u
 
 HostRule CRD is the means to attach WAF Policy into ingress with specific FQDN. More details can be found [on AVI Networks Github](https://github.com/avinetworks/avi-helm-charts/blob/master/docs/AKO/crds/hostrule.md)
 
-> :warning: WAF Policy has to be created in the NSX ALB Controller before creating the HostRule object 
-> 
+> :warning: WAF Policy has to be created in the NSX ALB Controller before creating the HostRule object
+>
 > :warning: WAF Policy only applies to secured FQDN (TLS based ingress)
 
 
@@ -215,7 +220,7 @@ Deploy the HostRule object
 kubectl apply -f dvwa-hostrule.yaml
 ```
 
-Verify if the HostRule object is accepted. 
+Verify if the HostRule object is accepted.
 ```
 $ kubectl get hr
 NAME            HOST                   STATUS     AGE
@@ -223,7 +228,3 @@ dvwa-hostrule   dvwa.apps.corp.local   Accepted   26m
 ```
 Look at the Application Dashboard in the NSX ALB Controller, a new Virtual Service Object is created. The Virtual Service has a secured icon which means WAF is enabled for that particular Virtual Service
 ![](https://i.imgur.com/oYUpVA8.png)
-
-
-
-
