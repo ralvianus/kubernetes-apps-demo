@@ -30,7 +30,7 @@ openssl req -x509 -nodes -days 365 \
 
 **Step 3: Create a Secret**
 ```bash
-kubectl create secret tls hello-ingress-tls --namespace hello --key hello-ingress-tls.key --cert hello-ingress-tls.crt
+kubectl create secret tls hello-ingress-tls --key hello-ingress-tls.key --cert hello-ingress-tls.crt
 ```
 Verify that the secret has been created
 ```
@@ -99,6 +99,33 @@ spec:
             servicePort: 80
 ```
 I have ingress on subdomain `shop.apps.corp.local` and it is redirecting to frontend service.
+
+### Creating a self-signed certificate
+
+**Step 1: Create a new namespace**
+```
+kubectl create ns shop
+```
+
+**Step 2: Generate a TLS cert**
+```
+openssl req -x509 -nodes -days 365 \
+-newkey rsa:2048 \
+-out shop-ingress-tls.crt \
+-keyout shop-ingress-tls.key \
+-subj "/CN=shop.apps.corp.local/O=shop-ingress-tls"
+```
+
+**Step 3: Create a Secret**
+```bash
+kubectl create secret tls shop-ingress-tls --key shop-ingress-tls.key --cert shop-ingress-tls.crt
+```
+Verify that the secret has been created
+```
+$ kubectl get secret shop-ingress-tls
+NAME               TYPE                DATA   AGE
+shop-ingress-tls   kubernetes.io/tls   2      7s
+```
 
 ### Deploy the yaml file
 Change directory
