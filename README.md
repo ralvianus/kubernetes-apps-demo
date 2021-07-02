@@ -88,6 +88,10 @@ metadata:
   labels:
     app: avi-gslb
 spec:
+  tls:
+  - hosts:
+      - shop.apps.corp.local
+    secretName: shop-ingress-tls
   rules:
     - host: shop.apps.corp.local
       http:
