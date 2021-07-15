@@ -323,6 +323,7 @@ metadata:
   labels:
     app: productpage
     version: v1
+    maistra.io/expose-route: "true"
 spec:
   replicas: 1
   selector:
