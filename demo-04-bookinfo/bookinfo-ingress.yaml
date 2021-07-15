@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: bookinfo-ingress
+  labels:
+    app: avi-gslb
+spec:
+  tls:
+  - hosts:
+      - bookinfo.apps.corp.local
+    secretName: bookinfo-ingress-tls
+  rules:
+    - host: bookinfo.apps.corp.local
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: productpage
+            servicePort: 9080
