@@ -6,6 +6,7 @@ metadata:
     certmanager.k8s.io/cluster-issuer: letsencrypt
   labels:
     app: avi-gslb
+    network.openshift.io/policy-group: ingress
 spec:
   tls:
   - hosts:
