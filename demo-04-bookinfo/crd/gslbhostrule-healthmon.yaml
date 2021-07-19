@@ -5,4 +5,4 @@ metadata:
 spec:
   fqdn: bookinfo.apps.corp.local
   healthMonitorRefs:
-  - gslb-custom-https
+  - System-GSLB-TCP
