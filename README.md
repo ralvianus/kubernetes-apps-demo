@@ -299,5 +299,4 @@ Apply the yaml file
 ```bash
 kubectl apply -f bookinfo.yaml
 kubectl apply -f bookinfo-ingress.yaml
-kubectl apply -f bookinfo.yaml
 ```
