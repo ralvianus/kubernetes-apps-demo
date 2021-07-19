@@ -266,14 +266,16 @@ spec:
       - shop.apps.corp.local
     secretName: shop-ingress-tls
   rules:
-    - host: shop.apps.corp.local
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: frontend
-            servicePort: 80
+  - host: shop.apps.corp.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
