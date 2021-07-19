@@ -83,11 +83,13 @@ spec:
       - dvwa.apps.corp.local
     secretName: dvwa-ingress-tls
   rules:
-    - host: dvwa.apps.corp.local
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: dvwa-service
-            servicePort: 80
+  - host: dvwa.apps.corp.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dvwa-service
+            port:
+              number: 80
