@@ -259,3 +259,45 @@ dvwa-hostrule   dvwa.apps.corp.local   Accepted   26m
 ```
 Look at the Application Dashboard in the NSX ALB Controller, a new Virtual Service Object is created. The Virtual Service has a secured icon which means WAF is enabled for that particular Virtual Service
 ![](https://i.imgur.com/oYUpVA8.png)
+
+## Demo Apps 4: Bookinfo App
+See <https://istio.io/docs/examples/bookinfo/>.
+
+![](https://i.imgur.com/PwUFeb6.png)
+
+> :warning: This app is deployed with Istio Service Mesh
+>
+
+### Creating a self-signed certificate
+
+**Step 1: Generate a TLS cert**
+```bash
+openssl req -x509 -nodes -days 365 \
+-newkey rsa:2048 \
+-out bookinfo-ingress-tls.crt \
+-keyout bookinfo-ingress-tls.key \
+-subj "/CN=bookinfo.apps.corp.local/O=bookinfo-ingress-tls"
+```
+
+**Step 2: Create a Secret**
+```bash
+kubectl create secret tls bookinfo-ingress-tls --key bookinfo-ingress-tls.key --cert bookinfo-ingress-tls.crt
+```
+Verify that the secret has been created
+```bash
+$ kubectl get secret bookinfo-ingress-tls
+NAME                   TYPE                DATA   AGE
+bookinfo-ingress-tls   kubernetes.io/tls   2      <invalid>
+```
+
+### Deploy the yaml file
+Change directory
+```bash
+cd demo-04-bookinfo
+```
+Apply the yaml file
+```bash
+kubectl apply -f bookinfo.yaml
+kubectl apply -f bookinfo-ingress.yaml
+kubectl apply -f bookinfo.yaml
+```
