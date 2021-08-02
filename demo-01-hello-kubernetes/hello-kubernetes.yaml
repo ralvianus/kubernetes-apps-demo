@@ -47,10 +47,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - hello.apps.corp.local
+      - hello.apps.lab01.one
     secretName: hello-ingress-tls
   rules:
-  - host: hello.apps.corp.local
+  - host: hello.apps.lab01.one
     http:
       paths:
       - path: /
