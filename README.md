@@ -25,7 +25,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out hello-ingress-tls.crt \
 -keyout hello-ingress-tls.key \
--subj "/CN=hello.apps.corp.local/O=hello-ingress-tls"
+-subj "/CN=hello.apps.lab01.one/O=hello-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
