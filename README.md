@@ -17,6 +17,7 @@ This application has a deployment and a secured ingress. Before deploying `hello
 **Step 1: Create a new namespace**
 ```
 kubectl create ns hello
+oc new-project hello
 ```
 
 **Step 2: Generate a TLS cert**
@@ -109,6 +110,7 @@ I have ingress on subdomain `shop.apps.corp.local` and it is redirecting to fron
 **Step 1: Create a new namespace**
 ```
 kubectl create ns shop
+oc new-project shop
 ```
 
 **Step 2: Generate a TLS cert**
@@ -174,6 +176,11 @@ The aim of DVWA is to practice some of the most common web vulnerabilities, with
 The purpose of this demo application is to test Web Application Firewall (WAF) capability from NSX Advanced Load Balancer (formerly AVI Networks).
 
 ### Creating a self-signed certificate
+**Step 1: Create a new namespace**
+```
+kubectl create ns dvwa-apps
+oc new-project dvwa-apps
+```
 
 **Step 1: Generate a TLS cert**
 ```
