@@ -80,10 +80,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - dvwa.apps.corp.local
+      - dvwa.apps.lab01.one
     secretName: dvwa-ingress-tls
   rules:
-  - host: dvwa.apps.corp.local
+  - host: dvwa.apps.lab01.one
     http:
       paths:
       - path: /

@@ -4,8 +4,8 @@ metadata:
   name: dvwa-hostrule
 spec:
   virtualhost:
-    fqdn: dvwa.apps.corp.local
+    fqdn: dvwa.apps.lab01.one
     enableVirtualHost: true
     gslb:
-      fqdn: dvwa.apps.corp.local
+      fqdn: dvwa.apps.lab01.one
     wafPolicy: System-WAF-Policy

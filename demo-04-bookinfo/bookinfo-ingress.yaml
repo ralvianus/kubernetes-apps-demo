@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - bookinfo.apps.corp.local
+      - bookinfo.apps.lab01.one
     secretName: bookinfo-ingress-tls
   rules:
-  - host: bookinfo.apps.corp.local
+  - host: bookinfo.apps.lab01.one
     http:
       paths:
       - path: /

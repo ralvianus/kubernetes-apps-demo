@@ -17,6 +17,7 @@ This application has a deployment and a secured ingress. Before deploying `hello
 **Step 1: Create a new namespace**
 ```
 kubectl create ns hello
+oc new-project hello
 ```
 
 **Step 2: Generate a TLS cert**
@@ -90,10 +91,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - shop.apps.corp.local
+      - shop.apps.lab01.one
     secretName: shop-ingress-tls
   rules:
-    - host: shop.apps.corp.local
+    - host: shop.apps.lab01.one
       http:
         paths:
         - path: /
@@ -102,13 +103,14 @@ spec:
             serviceName: frontend
             servicePort: 80
 ```
-I have ingress on subdomain `shop.apps.corp.local` and it is redirecting to frontend service.
+I have ingress on subdomain `shop.apps.lab01.one` and it is redirecting to frontend service.
 
 ### Creating a self-signed certificate
 
 **Step 1: Create a new namespace**
 ```
 kubectl create ns shop
+oc new-project shop
 ```
 
 **Step 2: Generate a TLS cert**
@@ -117,7 +119,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out shop-ingress-tls.crt \
 -keyout shop-ingress-tls.key \
--subj "/CN=shop.apps.corp.local/O=shop-ingress-tls"
+-subj "/CN=shop.apps.lab01.one/O=shop-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
@@ -163,7 +165,7 @@ Verify the Ingress
 ```bash
 $ kubectl get ingress
 NAME               CLASS    HOSTS                  ADDRESS        PORTS   AGE
-frontend-ingress   <none>   shop.apps.corp.local   10.20.10.150   80      18d
+frontend-ingress   <none>   shop.apps.lab01.one   10.20.10.150   80      18d
 ```
 
 ## Demo Apps 3: DVWA Apps
@@ -175,16 +177,22 @@ The purpose of this demo application is to test Web Application Firewall (WAF) c
 
 ### Creating a self-signed certificate
 
-**Step 1: Generate a TLS cert**
+**Step 1: Create a new namespace**
+```
+kubectl create ns dvwa-apps
+oc new-project dvwa-apps
+```
+
+**Step 2: Generate a TLS cert**
 ```
 openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out dvwa-ingress-tls.crt \
 -keyout dvwa-ingress-tls.key \
--subj "/CN=dvwa.apps.corp.local/O=dvwa-ingress-tls"
+-subj "/CN=dvwa.apps.lab01.one/O=dvwa-ingress-tls"
 ```
 
-**Step 2: Create a Secret**
+**Step 3: Create a Secret**
 ```bash
 kubectl create secret tls dvwa-ingress-tls --namespace dvwa-apps --key dvwa-ingress-tls.key --cert dvwa-ingress-tls.crt
 ```

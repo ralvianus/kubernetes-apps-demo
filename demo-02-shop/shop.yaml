@@ -263,10 +263,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - shop.apps.corp.local
+      - shop.apps.lab01.one
     secretName: shop-ingress-tls
   rules:
-  - host: shop.apps.corp.local
+  - host: shop.apps.lab01.one
     http:
       paths:
       - path: /
