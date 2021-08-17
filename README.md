@@ -1,7 +1,7 @@
 # Kubernetes Demo Apps
 
 ## Overview
-This demo app is deployed in the lab environment. I have setup a DNS name `apps.corp.local` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using.
+This demo app is deployed in the lab environment. I have setup a DNS name `apps.seakcloud.com` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using.
 
 This demo app is deployed in the environment where there is integration with NSX Advanced Load Balancer (formerly AVI Networks). NSX ALB provides ingress controller for multiple Kubernetes/Openshift clusters. The ingress settings in the yaml file is labelled with `avi-gslb` so that NSX ALB will be able to pickup the configuration and realize it in the NSX ALB platform.
 
@@ -68,7 +68,7 @@ Verify the Ingress
 ```bash
 $ kubectl get ingress
 NAME                       CLASS    HOSTS                   ADDRESS   PORTS     AGE
-hello-kubernetes-ingress   <none>   hello.apps.corp.local             80, 443   10d
+hello-kubernetes-ingress   <none>   hello.apps.seakcloud.com             80, 443   10d
 ```
 
 ## Demo Apps 2: Online Shopping Application
@@ -103,7 +103,7 @@ spec:
             serviceName: frontend
             servicePort: 80
 ```
-I have ingress on subdomain `shop.apps.corp.local` and it is redirecting to frontend service.
+I have ingress on subdomain `shop.apps.seakcloud.com` and it is redirecting to frontend service.
 
 ### Creating a self-signed certificate
 
@@ -165,7 +165,7 @@ Verify the Ingress
 ```bash
 $ kubectl get ingress
 NAME               CLASS    HOSTS                  ADDRESS        PORTS   AGE
-frontend-ingress   <none>   shop.apps.corp.local   10.20.10.150   80      18d
+frontend-ingress   <none>   shop.apps.seakcloud.com   10.20.10.150   80      18d
 ```
 
 ## Demo Apps 3: DVWA Apps
@@ -262,7 +262,7 @@ Verify if the HostRule object is accepted.
 ```
 $ kubectl get hr
 NAME            HOST                   STATUS     AGE
-dvwa-hostrule   dvwa.apps.corp.local   Accepted   26m
+dvwa-hostrule   dvwa.apps.seakcloud.com   Accepted   26m
 ```
 Look at the Application Dashboard in the NSX ALB Controller, a new Virtual Service Object is created. The Virtual Service has a secured icon which means WAF is enabled for that particular Virtual Service
 ![](https://i.imgur.com/oYUpVA8.png)
@@ -276,8 +276,13 @@ See <https://istio.io/docs/examples/bookinfo/>.
 >
 
 ### Creating a self-signed certificate
+**Step 1: Create a new namespace**
+```
+kubectl create ns hello
+oc new-project hello
+```
 
-**Step 1: Generate a TLS cert**
+**Step 2: Generate a TLS cert**
 ```bash
 openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
@@ -286,7 +291,7 @@ openssl req -x509 -nodes -days 365 \
 -subj "/CN=bookinfo.apps.seakcloud.com/O=bookinfo-ingress-tls"
 ```
 
-**Step 2: Create a Secret**
+**Step 3: Create a Secret**
 ```bash
 kubectl create secret tls bookinfo-ingress-tls --key bookinfo-ingress-tls.key --cert bookinfo-ingress-tls.crt
 ```
