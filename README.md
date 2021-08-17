@@ -26,7 +26,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out hello-ingress-tls.crt \
 -keyout hello-ingress-tls.key \
--subj "/CN=hello.apps.corp.local/O=hello-ingress-tls"
+-subj "/CN=hello.apps.seakcloud.com/O=hello-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
@@ -91,10 +91,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - shop.apps.corp.local
+      - shop.apps.seakcloud.com
     secretName: shop-ingress-tls
   rules:
-    - host: shop.apps.corp.local
+    - host: shop.apps.seakcloud.com
       http:
         paths:
         - path: /
@@ -119,7 +119,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out shop-ingress-tls.crt \
 -keyout shop-ingress-tls.key \
--subj "/CN=shop.apps.corp.local/O=shop-ingress-tls"
+-subj "/CN=shop.apps.seakcloud.com/O=shop-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
@@ -188,7 +188,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out dvwa-ingress-tls.crt \
 -keyout dvwa-ingress-tls.key \
--subj "/CN=dvwa.apps.corp.local/O=dvwa-ingress-tls"
+-subj "/CN=dvwa.apps.seakcloud.com/O=dvwa-ingress-tls"
 ```
 
 **Step 2: Create a Secret**
