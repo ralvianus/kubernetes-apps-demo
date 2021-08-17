@@ -283,7 +283,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out bookinfo-ingress-tls.crt \
 -keyout bookinfo-ingress-tls.key \
--subj "/CN=bookinfo.apps.corp.local/O=bookinfo-ingress-tls"
+-subj "/CN=bookinfo.apps.seakcloud.com/O=bookinfo-ingress-tls"
 ```
 
 **Step 2: Create a Secret**
