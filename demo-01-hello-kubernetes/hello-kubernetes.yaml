@@ -45,6 +45,7 @@ metadata:
   labels:
     app: avi-gslb
 spec:
+  ingressClassName: avi-lb
   tls:
   - hosts:
       - hello.apps.lab01.one
