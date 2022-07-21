@@ -263,10 +263,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - shop.apps.lab01.one
+      - shop.apps.acepod.com
     secretName: shop-ingress-tls
   rules:
-  - host: shop.apps.lab01.one
+  - host: shop.apps.acepod.com
     http:
       paths:
       - path: /

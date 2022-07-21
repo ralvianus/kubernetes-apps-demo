@@ -80,10 +80,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - dvwa.apps.lab01.one
+      - dvwa.apps.acepod.com
     secretName: dvwa-ingress-tls
   rules:
-  - host: dvwa.apps.lab01.one
+  - host: dvwa.apps.acepod.com
     http:
       paths:
       - path: /

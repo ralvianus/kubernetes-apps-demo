@@ -48,10 +48,10 @@ spec:
   ingressClassName: openshift-default
   tls:
   - hosts:
-      - hello.apps.lab01.one
+      - hello.apps.acepod.com
     secretName: hello-ingress-tls
   rules:
-  - host: hello.apps.lab01.one
+  - host: hello.apps.acepod.com
     http:
       paths:
       - path: /

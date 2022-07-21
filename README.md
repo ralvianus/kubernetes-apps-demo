@@ -26,7 +26,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out hello-ingress-tls.crt \
 -keyout hello-ingress-tls.key \
--subj "/CN=hello.apps.lab01.one/O=hello-ingress-tls"
+-subj "/CN=hello.apps.acepod.com/O=hello-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
@@ -91,10 +91,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - shop.apps.lab01.one
+      - shop.apps.acepod.com
     secretName: shop-ingress-tls
   rules:
-    - host: shop.apps.lab01.one
+    - host: shop.apps.acepod.com
       http:
         paths:
         - path: /
@@ -103,7 +103,7 @@ spec:
             serviceName: frontend
             servicePort: 80
 ```
-I have ingress on subdomain `shop.apps.lab01.one` and it is redirecting to frontend service.
+I have ingress on subdomain `shop.apps.acepod.com` and it is redirecting to frontend service.
 
 ### Creating a self-signed certificate
 
@@ -119,7 +119,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out shop-ingress-tls.crt \
 -keyout shop-ingress-tls.key \
--subj "/CN=shop.apps.lab01.one/O=shop-ingress-tls"
+-subj "/CN=shop.apps.acepod.com/O=shop-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
@@ -165,7 +165,7 @@ Verify the Ingress
 ```bash
 $ kubectl get ingress
 NAME               CLASS    HOSTS                  ADDRESS        PORTS   AGE
-frontend-ingress   <none>   shop.apps.lab01.one   10.20.10.150   80      18d
+frontend-ingress   <none>   shop.apps.acepod.com   10.20.10.150   80      18d
 ```
 
 ## Demo Apps 3: DVWA Apps
@@ -189,7 +189,7 @@ openssl req -x509 -nodes -days 365 \
 -newkey rsa:2048 \
 -out dvwa-ingress-tls.crt \
 -keyout dvwa-ingress-tls.key \
--subj "/CN=dvwa.apps.lab01.one/O=dvwa-ingress-tls"
+-subj "/CN=dvwa.apps.acepod.com/O=dvwa-ingress-tls"
 ```
 
 **Step 3: Create a Secret**
