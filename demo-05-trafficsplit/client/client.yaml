@@ -65,7 +65,7 @@ metadata:
 spec:
   ingressClassName: openshift-default
   tls:
-    - secretName: client-tls
+    - secretName: client-ingress-tls
       hosts:
         - client.apps.acepod.com
   rules:
