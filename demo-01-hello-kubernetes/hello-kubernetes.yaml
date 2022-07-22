@@ -40,12 +40,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-kubernetes-ingress
-  annotations:
-    certmanager.k8s.io/cluster-issuer: letsencrypt
   labels:
     app: avi-gslb
 spec:
-  ingressClassName: avi-lb
   tls:
   - hosts:
       - hello.apps.acepod.com
