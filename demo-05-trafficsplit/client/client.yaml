@@ -16,20 +16,19 @@ spec:
         app: client
     spec:
       containers:
-      - image: ghcr.io/yogendra/nsx-alb-client:latest
-        imagePullPolicy: Always
-        name: nsx-alb-client
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-          - containerPort: 8080
-            name: http
-        env:
+        - image: ghcr.io/yogendra/blue-green:latest
+          name: client
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3001
+              name: http
+          env:
             - name: CONFIG_JSON
               valueFrom:
                 configMapKeyRef:
