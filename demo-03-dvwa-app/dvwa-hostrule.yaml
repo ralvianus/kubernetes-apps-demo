@@ -4,8 +4,8 @@ metadata:
   name: dvwa-hostrule
 spec:
   virtualhost:
-    fqdn: dvwa.apps.corp.local
+    fqdn: dvwa.apps.acepod.com
     enableVirtualHost: true
     gslb:
-      fqdn: dvwa.apps.corp.local
+      fqdn: dvwa.apps.acepod.com
     wafPolicy: System-WAF-Policy

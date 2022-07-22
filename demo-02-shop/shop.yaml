@@ -254,7 +254,7 @@ spec:
     port: 80
     targetPort: 8080
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: frontend-ingress
@@ -263,17 +263,19 @@ metadata:
 spec:
   tls:
   - hosts:
-      - shop.apps.corp.local
+      - shop.apps.acepod.com
     secretName: shop-ingress-tls
   rules:
-    - host: shop.apps.corp.local
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: frontend
-            servicePort: 80
+  - host: shop.apps.acepod.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
 ---
 apiVersion: apps/v1
 kind: Deployment

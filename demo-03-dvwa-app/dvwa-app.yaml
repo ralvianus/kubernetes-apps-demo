@@ -71,7 +71,7 @@ spec:
       imagePullSecrets:
       - name: regcred
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dvwa-ingress
@@ -80,14 +80,16 @@ metadata:
 spec:
   tls:
   - hosts:
-      - dvwa.apps.corp.local
+      - dvwa.apps.acepod.com
     secretName: dvwa-ingress-tls
   rules:
-    - host: dvwa.apps.corp.local
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: dvwa-service
-            servicePort: 80
+  - host: dvwa.apps.acepod.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dvwa-service
+            port:
+              number: 80

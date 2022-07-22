@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: bookinfo-ingress
@@ -9,14 +9,16 @@ metadata:
 spec:
   tls:
   - hosts:
-      - bookinfo.apps.corp.local
+      - bookinfo.apps.acepod.com
     secretName: bookinfo-ingress-tls
   rules:
-    - host: bookinfo.apps.corp.local
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: productpage
-            servicePort: 9080
+  - host: bookinfo.apps.acepod.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: productpage
+            port:
+              number: 9080

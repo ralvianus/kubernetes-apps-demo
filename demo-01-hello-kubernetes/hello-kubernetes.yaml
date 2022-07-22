@@ -36,25 +36,26 @@ spec:
       imagePullSecrets:
       - name: regcred
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-kubernetes-ingress
-  annotations:
-    certmanager.k8s.io/cluster-issuer: letsencrypt
   labels:
     app: avi-gslb
 spec:
+  ingressClassName: openshift-default
   tls:
   - hosts:
-      - hello.apps.corp.local
+      - hello.apps.acepod.com
     secretName: hello-ingress-tls
   rules:
-    - host: hello.apps.corp.local
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            serviceName: hello-kubernetes
-            servicePort: 80
+  - host: hello.apps.acepod.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-kubernetes
+            port:
+              number: 80

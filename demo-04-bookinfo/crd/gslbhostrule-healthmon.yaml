@@ -1,0 +1,8 @@
+apiVersion: amko.vmware.com/v1alpha1
+kind: GSLBHostRule
+metadata:
+  name: gslb-health-monitor-tcp
+spec:
+  fqdn: bookinfo.apps.corp.local
+  healthMonitorRefs:
+  - System-GSLB-TCP

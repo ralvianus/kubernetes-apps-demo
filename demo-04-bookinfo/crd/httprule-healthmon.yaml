@@ -1,0 +1,10 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HTTPRule
+metadata:
+   name: health-monitor-tcp
+spec:
+  fqdn: bookinfo.apps.corp.local
+  paths:
+  - target: /
+    healthMonitors:
+    - custom-http
