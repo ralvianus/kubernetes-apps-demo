@@ -1,7 +1,7 @@
 # Kubernetes Demo Apps
 
 ## Overview
-This demo app is deployed in the lab environment. I have setup a DNS name `apps.corp.local` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using.
+This demo app is deployed in the lab environment. I have setup a DNS name `apps.acepod.com` as a delegated names. You need to adjust the `host` value in each yaml file to reflect the domain name you are using.
 
 This demo app is deployed in the environment where there is integration with NSX Advanced Load Balancer (formerly AVI Networks). NSX ALB provides ingress controller for multiple Kubernetes/Openshift clusters. The ingress settings in the yaml file is labelled with `avi-gslb` so that NSX ALB will be able to pickup the configuration and realize it in the NSX ALB platform.
 
