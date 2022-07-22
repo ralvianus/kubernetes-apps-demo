@@ -1,0 +1,12 @@
+apiVersion: amko.vmware.com/v1alpha1
+kind: GSLBHostRule
+metadata:
+  name: gslbhostrule
+spec:
+  fqdn: echo-server.apps.acepod.com
+  trafficSplit:
+  - cluster: cl02-melbourne
+    weight: 1
+  - cluster: cl01-sydney
+    weight: 1
+  ttl: 1

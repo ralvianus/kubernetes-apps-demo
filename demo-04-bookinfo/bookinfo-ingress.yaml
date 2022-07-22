@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - bookinfo.apps.lab01.one
+      - bookinfo.apps.acepod.com
     secretName: bookinfo-ingress-tls
   rules:
-  - host: bookinfo.apps.lab01.one
+  - host: bookinfo.apps.acepod.com
     http:
       paths:
       - path: /
