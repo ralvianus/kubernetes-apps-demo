@@ -29,16 +29,37 @@ spec:
         ports:
           - containerPort: 8080
             name: http
-        volumeMounts:
-        - name: config-volume
-          mountPath: /usr/share/nginx/html/config
-      volumes:
-        - name: config-volume
-          configMap:
-            name: client
-            items:
-            - path: "demo-config.js"
-              key: "demo-config.js"
+        env:
+            - name: CONFIG_JSON
+              valueFrom:
+                configMapKeyRef:
+                  key: "config.json"
+                  name: client
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client
+data:
+  config.json: |
+    {
+      "port": 3001,
+      "endpoint": {
+        "address": "https://echo-server.apps.acepod.com",
+        "type": "web",
+        "versions": ["blue", "green"]
+      },
+      "probe": {
+        "interval": 10
+      },
+      "sample": {
+        "interval": 1000,
+        "max": 600
+      },
+      "graph": {
+        "colors": ["blue", "green"]
+      }
+    }
 
 ---
 kind: Service
