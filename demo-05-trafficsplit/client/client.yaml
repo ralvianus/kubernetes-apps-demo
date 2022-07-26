@@ -35,36 +35,6 @@ spec:
                   key: "config.json"
                   name: client
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: client
-data:
-  config.json: |
-    {
-      "port": 3001,
-      "endpoint": {
-        "type": "dns",
-        "address": "echo-server.apps.acepod.com",
-        "nameservers": ["10.10.10.101","10.10.20.101"],
-        "versionMap": {
-          "10.10.10.103": "blue",
-          "10.10.20.104": "green"
-        }
-      },
-      "probe": {
-        "interval": 10
-      },
-      "sample": {
-        "interval": 1000,
-        "max": 600
-      },
-      "graph": {
-        "colors": ["blue", "green"]
-      }
-    }
-
----
 kind: Service
 apiVersion: v1
 metadata:
